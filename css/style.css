@@ -1,0 +1,406 @@
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
+body{line-height:1}
+h1 {font-size: 1.5em;margin-bottom: 10px;}
+p{font-size: 1em;line-height: 1.3em;margin-bottom: 10px;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+nav ul{list-style:none}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:none}
+a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}
+ins{background-color:#ff9;color:#000;text-decoration:none}
+mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}
+del{text-decoration:line-through}
+abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}
+table{border-collapse:collapse;border-spacing:0}
+hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
+input,select{vertical-align:middle}
+
+#desktop {
+	font-family: Arial, Helvetica, sans-serif;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #EFE9D5;
+	overflow: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.window {
+    position: absolute;
+    border: 2px solid #000;
+    background: #eae8d8;
+	border-radius: 5px;
+	z-index: 1000;
+    width: auto;  /* Ajusta al tamaño del contenido */
+    height: auto; /* Ajusta al tamaño del contenido */
+}
+.window.closed {
+	display: none;
+}
+.window.minimizedWindow {
+	display: none;
+}
+.window.fullSizeWindow {
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    border-radius: 0;
+    bottom: 32px !important;
+}
+.fullSizeWindow .ui-resizable-handle {
+	display: none;
+}
+.windowHeader {
+    background-color: #99b5d1;
+    text-align: right;
+    border-bottom: 2px solid #000;
+    padding: 2px;
+    cursor: move;
+    height: 28px;
+    width: auto;  /* El ancho se ajustará automáticamente al contenido */
+    height: auto; /* La altura se ajustará automáticamente al contenido */
+
+
+}
+.activeWindow .windowHeader {
+    background-color: #0154e5;
+}
+.windowHeader > span {
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid #000;
+    margin-left: 4px;
+    font-size: 19px;
+    padding: 2px 10px;
+    font-family: "Arial Black", Gadget, sans-serif;
+    border-radius: 5px;
+    line-height: 20px;
+    width: 12px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.windowHeader > span:hover {
+	background: rgba(255,255,255,0.3);
+}
+.windowHeader > span.winclose:hover {
+	background: #f15454;
+}
+.windowHeader > span > span {
+    display: inline-block;
+    height: 8px;
+    width: 10px;
+    position: absolute;
+    top: 6px;
+    left: 10px;
+}
+.winminimize > span {
+	border-bottom: 3px solid #000;
+}
+.winmaximize > span {
+	border: 2px solid #000;
+	border-top: 3px solid #000;
+}
+.winmaximize > span:nth-child(2) {
+	display: none;
+}
+.fullSizeWindow .winmaximize > span:nth-child(1) {
+	margin: 2px 0 0 -4px;
+}
+.fullSizeWindow .winmaximize > span:nth-child(2) {
+    display: inline-block;
+    top: 3px;
+    left: 12px;
+}
+.wincontent {
+    padding: 10px;
+    min-width: 200px;  /* Opcional: Mantener para asegurar un tamaño mínimo */
+    min-height: 140px; /* Opcional: Mantener para asegurar un tamaño mínimo */
+    border: 2px solid #000;
+    margin: 2px;
+    border-radius: 0 0 5px 5px;
+    width: auto;  /* El ancho se ajustará automáticamente al contenido */
+    height: auto; /* La altura se ajustará automáticamente al contenido */
+}
+
+
+.windowHeader > strong {
+    float: left;
+    margin: 0px 3px 0 10px;
+    line-height: 29px;
+    font-size: 17px;
+}
+.taskbarPanel {
+    display: inline-block;
+    border: 2px solid #000;
+    border-radius: 5px;
+    line-height: 24px;
+    margin: 2px 0 0 10px;
+    font-size: 17px;
+    padding: 0 10px;
+    background: #CCC;
+    font-weight: bold;
+	cursor: pointer;
+}
+.taskbarPanel.activeTab {
+	background: #FFF;
+}
+.taskbarPanel.minimizedTab {
+	background: #AAA;
+}
+.taskbarPanel.minimizedTab:hover {
+	background: #DDD;
+}
+.taskbarPanel.closed {
+	display: none;
+}
+#taskbar {
+	position: absolute;
+	height: 32px;
+	border-top: 2px solid #000;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #EEE;
+}
+
+#icons {
+    padding: 20px;
+    display: block;
+}
+
+#icons a {
+    display: block; /* Hace que cada enlace ocupe una línea completa */
+    padding: 20px; /* Aumenta el padding para hacer el área más grande para los iconos */
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: #71BBB2;
+    border: 2px solid #8A8A8A;
+    border-radius: 8px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), inset 1px 1px 3px rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px; /* Espacio entre los iconos */
+    width: auto; /* Asegura que el ancho sea el necesario para el texto */
+    text-align: center; /* Centra el texto dentro del icono */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover */
+#icons a:hover {
+    background-color: #99b5d1; /* Gris más oscuro en hover */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5), inset 1px 1px 3px rgba(255, 255, 255, 0.7);
+}
+
+/* Efecto active */
+#icons a:active {
+    background-color: #EFE9D5; /* Gris aún más oscuro */
+    box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.5), inset -3px -3px 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Si se usan iconos con imágenes */
+#icons a img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px; /* Espacio entre el icono gráfico y el texto */
+}
+
+#icons a span {
+    display: block; /* Hace que el texto esté en su propia línea */
+    font-size: 14px;
+    color: black;
+    font-weight: bold;
+}
+
+    #templateLink {
+    position: absolute;
+    display: inline-block;
+    bottom: 10px;
+    right: 20px;
+    font-weight: bold;
+    font-size: 15px;
+    color: #30478c;
+}
+body {
+    background-color: #008080;
+    font-family: "MS Sans Serif", sans-serif;
+    color: black;
+    padding: 20px;
+}
+#aficiones {
+    font-family: "MS Sans Serif", sans-serif;
+    color: #000000;
+    text-align: center;
+    padding: 20px;
+    width: 300px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin: 5px 0;
+    padding: 5px;
+}
+
+
+
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #2980b9;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    text-indent: -20px;
+}
+
+li:before {
+    content: "• ";
+    color: #2980b9;
+    font-weight: bold;
+}
+
+span {
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+.skills ul {
+    margin-top: 20px;
+}
+
+.skills li {
+    margin-bottom: 8px;
+}
+
+/*Posiciones y tamañps de las ventanas*/
+#window0 {	top: 113px;	left: 1110px;}
+#window1 {	top: 200px; left: 90px;}
+#window2 {	top: 300px; left: 80px;}
+#window3 {	top: 200px; left: 100px;}
+#window0 .wincontent {	width: 660px; height: 800px;	}
+#window1 .wincontent {	width: 500px; height: 300px;	}
+#window2 .wincontent {	width: 350px; height: 400px;	}
+#window3 .wincontent {	width: 50px; height: 250px;	}
+@media screen and (max-width:960px){
+	#window0 {	left: 10px;	}
+	#window3 {	left: 50px;	}
+}
+@media screen and (max-width:770px){
+	#window0 .wincontent {	width: 460px;	}
+	#window2 {	left: 100px;	}
+	#window1 {	top: 190px;	left: -5px;	}
+}
+@media screen and (max-width:540px){
+#window0 .wincontent {	width: 230px; height: 200px;	}
+#window3 .wincontent {
+    width: 275px;
+    height: auto;
+}
+#window3 {    top: 9px;    left: 10px;	}
+#window2 {    left: -118px;	}
+#window1 .wincontent {    width: auto;    height: 300px;	}
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.controles {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #e7e7e7;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Estilo botón resaltado que se aplicará con JavaScript */
+.botonActivo {
+    background-color: #4CAF50;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Tema claro para la galería - se aplicará con JavaScript */
+.tema-claro {
+    background-color: #efe9d5;
+    padding: 15px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+#galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    display: flex
+}
+
+.imagen-contenedor {
+    width: 200px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    display: flex
+}
+
+.imagen-contenedor img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.imagen-contenedor p {
+    text-align: center;
+    margin-top: 5px;
+}
+
+img:hover {
+    width: 275px;
+    height: 275px;
+    transition: 0.3s ease;
+}

@@ -8,9 +8,11 @@
 	<link rel="canonical" href="https://html5-templates.com/" />
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="scripts/script.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<title>Windows Template</title>
+	<script src="scripts/scriptGaleriaImagenes.js"></script>
+
+	<script src="scripts/script.js"></script>
 </head>
 <body>
 	<div id="desktop">
@@ -107,15 +109,42 @@
 		<div id="taskbar">
 
 		</div>
-		
+		<body onload="inicializaReferencias()">
 		<div id="icons">
 			<a class="openWindow" data-id="0">Currículum </a>
 			<a class="openWindow" data-id="1">Sobre mí </a>
 			<a class="openWindow" data-id="2">Aficiones</a>
 			<a class="openWindow" data-id="3">Trabajos</a>
 		</div>
-		<P>
-		</P>
+
+		<h1>Galería de Imágenes</h1>
+
+		<div class="controles">
+			<button id="tema-claro">Tema Claro</button>
+			<button id="tema-oscuro">Tema Oscuro</button>
+			<button id="reset-estilos">Restablecer</button>
+		</div>
+
+		<div id="galeria">
+			<div class="imagen-contenedor">
+				<p><img src="imagenes/imagen1.jpg" height="223" width="226"/>
+				patataaa</p>
+
+			</div>
+			<div class="imagen-contenedor">
+				<p><img src="../imagenes/imagen2 (2).jpg" height="180" width="180"/>
+				mmmmm</p>
+
+			</div>
+			<div class="imagen-contenedor">
+				<p><img src="../imagenes/imagen 3.jpg" height="180" width="180"/>
+				Selfieeee</p>
+			</div>
+			<div class="imagen-contenedor">
+				<p><img src="../imagenes/imagen4.jpg" height="180" width="180"/>
+					Quítame ya esta sandía</p>
+			</div>
+		</div>
 	</div>
 </body>
 
